@@ -1,7 +1,9 @@
 package com.devteria.identity.entity;
 
+import java.time.LocalDate;
 import java.util.Set;
 
+import com.devteria.identity.validator.DobConstraint;
 import jakarta.persistence.*;
 
 import lombok.*;
@@ -21,6 +23,9 @@ public class User {
 
     String username;
     String password;
+    String firstName;
+    String lastName;
+    LocalDate dob;
 
     @ManyToMany
     Set<Role> roles;
