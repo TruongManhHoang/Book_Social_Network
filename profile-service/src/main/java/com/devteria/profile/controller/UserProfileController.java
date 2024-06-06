@@ -20,7 +20,6 @@ public class UserProfileController {
     public UserProfileController(UserProfileService userProfileService) {
         this.userProfileService = userProfileService;
     }
-
     @GetMapping("/{profileId}")
     public ApiResponse<UserProfileResponse> getProfileById(@PathVariable("profileId") String profileId){
         ApiResponse<UserProfileResponse> response = new ApiResponse<>();
