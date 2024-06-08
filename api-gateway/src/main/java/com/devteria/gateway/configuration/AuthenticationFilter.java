@@ -53,7 +53,6 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             return unauthentication(exchange.getResponse());
         }
         String token = authHeader.getFirst().replace("Bearer", "");
-        log.info("Token: {}",token);
         // Verify token
         return identityService.introspect(token).flatMap(introspectResponse ->{
                 if(introspectResponse.getResult().isValid())

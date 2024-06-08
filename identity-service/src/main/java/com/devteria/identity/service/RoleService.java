@@ -3,6 +3,10 @@ package com.devteria.identity.service;
 import java.util.HashSet;
 import java.util.List;
 
+import com.devteria.identity.dto.request.RoleUpdateRequest;
+import com.devteria.identity.entity.Role;
+import com.devteria.identity.exception.AppException;
+import com.devteria.identity.exception.ErrorCode;
 import org.springframework.stereotype.Service;
 
 import com.devteria.identity.dto.request.RoleRequest;
@@ -26,8 +30,22 @@ public class RoleService {
     RoleMapper roleMapper;
 
     public RoleResponse create(RoleRequest request) {
+        if(roleRepository.existsByName(request.getName())){
+            throw new AppException(ErrorCode.ROLE_EXISTED);
+        }
         var role = roleMapper.toRole(request);
 
+        var permissions = permissionRepository.findAllById(request.getPermissions());
+        role.setPermissions(new HashSet<>(permissions));
+
+        role = roleRepository.save(role);
+        return roleMapper.toRoleResponse(role);
+    }
+
+    public RoleResponse update(RoleUpdateRequest request, String name) {
+        Role role = roleRepository.findById(name).orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
+
+        roleMapper.updateRoleFromRequest(role,request);
         var permissions = permissionRepository.findAllById(request.getPermissions());
         role.setPermissions(new HashSet<>(permissions));
 

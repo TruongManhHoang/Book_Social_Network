@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PermissionService {
     PermissionRepository permissionRepository;
+
     PermissionMapper permissionMapper;
 
     public PermissionResponse create(PermissionRequest request) {
