@@ -24,6 +24,7 @@ public class BookUpdateRequest {
     private String publisher;
     private double averageRating;
     private int ratingsCount;
+    String image;
 
     @DBRef
     private Set<String> categories;

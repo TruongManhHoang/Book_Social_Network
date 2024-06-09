@@ -3,7 +3,9 @@ package com.devteria.book.service;
 import com.devteria.book.dto.request.BookCreateRequest;
 import com.devteria.book.dto.request.BookUpdateRequest;
 import com.devteria.book.dto.response.BookResponse;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface BookService {

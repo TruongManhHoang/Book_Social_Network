@@ -8,7 +8,7 @@ import com.devteria.book.repository.CategoryRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,19 +22,20 @@ public class CategoryServiceImpl implements CategoryService{
     CategoryMapper categoryMapper;
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public CategoryResponse create(CategoryCreateRequest request) {
         Category category = categoryMapper.toCategory(request);
 
         category = categoryRepository.save(category);
         return categoryMapper.toCategoryResponse(category);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public List<CategoryResponse> findAll() {
         var category = categoryRepository.findAll();
         return category.stream().map(categoryMapper::toCategoryResponse).toList();
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public void delete(String id) {
         categoryRepository.deleteById(id);

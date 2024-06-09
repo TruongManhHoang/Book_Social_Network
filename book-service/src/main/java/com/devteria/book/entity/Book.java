@@ -1,12 +1,12 @@
 package com.devteria.book.entity;
 
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -15,21 +15,20 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Entity
+@Document(collection = "books") // Annotation để chỉ định đây là document của MongoDB
 public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
-    private String title;
-    private String author;
-    private String description;
-    private LocalDate publishedDate;
-    private String isbn;
-    private String language;
-    private int pageCount;
-    private String publisher;
-    private double averageRating;
-    private int ratingsCount;
+    @Id // Annotation cho khóa chính trong MongoDB
+    String id;
+    String title;
+    String author;
+    String description;
+    LocalDate publishedDate;
+    String isbn;
+    String language;
+    int pageCount;
+    String publisher;
+    double averageRating;
+    int ratingsCount;
 
     @DBRef
     private Set<Category> categories;
