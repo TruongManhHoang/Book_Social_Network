@@ -42,9 +42,9 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     @Value("${app.api-prefix}")
     @NonFinal
     String apiFrefix;
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        log.info("Enter authentication filter");
         if(isPublicEndpoints(exchange.getRequest()))
            return chain.filter(exchange);
         // Get token form authorization header

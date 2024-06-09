@@ -3,13 +3,10 @@ spring:
     name: book_service
   data:
     mongodb:
-      uri: mongodb://localhost:27017/book_service
-
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
-
+      host: localhost
+      port: 27017
+      database: book_service
+#      uri: mongodb://localhost:27017/book_service
 server:
   port: 8082
   servlet:
@@ -20,3 +17,4 @@ logging:
     root: INFO
     org.springframework: INFO
     com.example.book_service: DEBUG
+

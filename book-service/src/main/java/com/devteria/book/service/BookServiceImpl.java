@@ -27,6 +27,7 @@ public class BookServiceImpl implements BookService{
     BookMapper bookMapper;
 
     CategoryRepository categoryRepository;
+
     @PreAuthorize("hasRole('ADMIN') || hasAuthority('CREATE_DATA')")
     @Override
     public BookResponse create(BookCreateRequest request) {
@@ -56,7 +57,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-//    @PreAuthorize("hasRole('ADMIN') || hasAuthority("-DATA')")
+    @PreAuthorize("hasRole('ADMIN') || hasAuthority('GET_DATA')")
     public List<BookResponse> findAll() {
         return bookRepository.findAll().stream().map(bookMapper::toBookRespose).toList();
     }
@@ -69,6 +70,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(String id) {
         bookRepository.deleteById(id);
     }
